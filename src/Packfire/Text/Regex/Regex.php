@@ -11,9 +11,6 @@
 
 namespace Packfire\Text\Regex;
 
-use Packfire\Text\Regex\Match;
-use Packfire\Text\String;
-
 /**
  * Provides functionality for regular expression matching and replacement
  *
@@ -142,7 +139,7 @@ class Regex {
     /**
      * Find the position of the first occurrance of regular expression match 
      * in the string
-     * @param String|string $subject The string to search for
+     * @param string $subject The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer A non-negative number indicating the position of $s in
      *               the string, or -1 if not found. 
@@ -163,7 +160,7 @@ class Regex {
     /**
      * Find the position of the last occurrance of perl compatible regular
      *           expression match in the string
-     * @param String|string $subject The string to search for
+     * @param string $subject The string to search for
      * @param integer $offset (optional) The position to start searching for
      * @return integer A non-negative number indicating the position of $s in
      *                       the string, or -1 if not found. 
