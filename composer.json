@@ -1,0 +1,16 @@
+{
+    "name": "packfire/regex",
+    "description": "Packfire Framework Regular Expression Component",
+    "authors": [
+        {
+            "name": "Sam-Mauris Yong",
+            "email": "sam@mauris.sg"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload":{
+        "psr-0": {"Packfire\\Text\\Regex\\":"src"}
+    }
+}
