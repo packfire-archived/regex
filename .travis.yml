@@ -12,6 +12,7 @@ matrix:
 
 before_script:
   - composer install --prefer-source
+  - pear install pear/PHP_CodeSniffer
 
 script:
     - phpunit -c test
