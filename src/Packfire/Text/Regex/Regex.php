@@ -54,7 +54,7 @@ class Regex
      * Perform a perl-compatible regular expression (PCRE) match to match 
      * within the subject
      * @param string $subject The input string
-     * @return array A list that contains all the Match found 
+     * @return \Packfire\Text\Regex\Match[] A list that contains all the Match found 
      *          in the subject
      * @link http://php.net/manual/en/function.preg-match.php
      * @since 1.0-sofia

@@ -20,11 +20,12 @@ namespace Packfire\Text\Regex;
  * @package Packfire\Text\Regex
  * @since 1.0-sofia
  */
-class Match {
+class Match
+{
 
     /**
      * The regular expression Regex object that this match originated from
-     * @var Regex
+     * @var \Packfire\Text\Regex\Regex
      * @since 1.0-sofia
      */
     private $regex;
@@ -38,22 +39,24 @@ class Match {
 
     /**
      * Create a new Match
-     * @param Regex $regex The Regex object that created this match
+     * @param \Packfire\Text\Regex\Regex $regex The Regex object that created this match
      * @param string $match The matching string
      * @since 1.0-sofia
      * @codeCoverageIgnore
      */
-    public function __construct($regex, $match){
+    public function __construct($regex, $match)
+    {
         $this->regex = $regex;
         $this->match = $match;
     }
 
     /**
      * Get the regular expression Regex object that this match originated from
-     * @return Regex Returns the regular expression object
+     * @return \Packfire\Text\Regex\Regex Returns the regular expression object
      * @since 1.0-sofia
      */
-    public function regex(){
+    public function regex()
+    {
         return $this->regex;
     }
 
@@ -62,8 +65,8 @@ class Match {
      * @return string Returns the text that matched the pattern
      * @since 1.0-sofia
      */
-    public function match(){
+    public function match()
+    {
         return $this->match;
     }
-
 }
