@@ -186,6 +186,7 @@ class RegexTest extends \PHPUnit_Framework_TestCase
      */
     public function testEscape()
     {
-        $this->assertEquals('\[a-z\]\{3\}\[0-9\]\{2\}', Regex::escape('[a-z]{3}[0-9]{2}'));
+        $this->assertEquals('\[a\-z\]\{3\}\[0\-9\]\{2\}', Regex::escape('[a-z]{3}[0-9]{2}'));
+        $this->assertEquals('\/\[a\-z\]\{3\}\[0\-9\]\{2\}\/', Regex::escape('/[a-z]{3}[0-9]{2}/', '/'));
     }
 }
