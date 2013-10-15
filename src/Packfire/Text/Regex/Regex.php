@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -152,7 +152,7 @@ class Regex
         );
         return $result;
     }
-    
+
     /**
      * Find the position of the first occurrance of regular expression match 
      * in the string
@@ -179,7 +179,7 @@ class Regex
         }
         return -1;
     }
-    
+
     /**
      * Find the position of the last occurrance of perl compatible regular
      *           expression match in the string
@@ -210,15 +210,12 @@ class Regex
     /**
      * Escapes / add slashes to special characters in Regex operation
      * @param string $text The text to perform escaping
+     * @param string $delimiter The delimiter of your regular expression that will be escaped. '/' is the most commonly used delimiter in most regex.
      * @return string Returns the escaped string
      * @since 1.0-sofia
      */
-    public static function escape($text)
+    public static function escape($text, $delimiter = '')
     {
-        $spec  = '"\'^$.[]|()?*+{}/!';
-        $text = str_replace("\\n", "\n", $text);
-        $text = addcslashes($text, $spec);
-        $text = htmlentities($text);
-        return $text;
+        return preg_quote($text, $delimiter);
     }
 }
