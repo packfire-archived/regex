@@ -3,7 +3,7 @@
 /**
  * Packfire Framework for PHP
  * By Sam-Mauris Yong
- * 
+ *
  * Released open source under New BSD 3-Clause License.
  * Copyright (c) Sam-Mauris Yong <sam@mauris.sg>
  * All rights reserved.
@@ -20,7 +20,8 @@ namespace Packfire\Text\Regex;
  * @package Packfire\Text\Regex
  * @since 1.0-sofia
  */
-class Regex {
+class Regex
+{
 
     /**
      * The regular expression
@@ -34,7 +35,8 @@ class Regex {
      * @param string $regex The regular expression pattern to use
      * @since 1.0-sofia
      */
-    public function __construct($regex){
+    public function __construct ($regex)
+    {
         $this->regex = $regex;
     }
 
@@ -43,7 +45,8 @@ class Regex {
      * @return string Returns the regular expression.
      * @since 1.0-sofia
      */
-    public function regex(){
+    public function regex()
+    {
         return $this->regex;
     }
 
@@ -51,17 +54,18 @@ class Regex {
      * Perform a perl-compatible regular expression (PCRE) match to match 
      * within the subject
      * @param string $subject The input string
-     * @return array A list that contains all the Match found 
+     * @return \Packfire\Text\Regex\Match[] A list that contains all the Match found 
      *          in the subject
      * @link http://php.net/manual/en/function.preg-match.php
      * @since 1.0-sofia
      */
-    public function match($subject){
+    public function match($subject)
+    {
         $match = array();
         preg_match($this->regex, $subject, $match);
         $result = array();
-        foreach($match as $a){
-            $result[] = new Match($this, $a);
+        foreach ($match as $value) {
+            $result[] = new Match($this, $value);
         }
         return $result;
     }
@@ -75,8 +79,9 @@ class Regex {
      * @link http://php.net/manual/en/function.preg-match.php
      * @since 1.1-sofia
      */
-    public function matches($subject){
-        return (bool)preg_match($this->regex(), $subject);        
+    public function matches($subject)
+    {
+        return (bool)preg_match($this->regex, $subject);
     }
 
     /**
@@ -87,14 +92,15 @@ class Regex {
      * @link http://www.php.net/manual/en/function.preg-match-all.php
      * @since 1.0-sofia
      */
-    public function matchAll($subject){
+    public function matchAll($subject)
+    {
         $matches = array();
-        preg_match_all($this->regex(), $subject, $matches, PREG_SET_ORDER);
+        preg_match_all($this->regex, $subject, $matches, PREG_SET_ORDER);
         $finalResult = array();
-        foreach($matches as $match){
+        foreach ($matches as $match) {
             $result = array();
-            foreach($match as $c){
-                $result[] = new Match($this, $c);
+            foreach ($match as $value) {
+                $result[] = new Match($this, $value);
             }
             $finalResult[] = $result;
         }
@@ -112,8 +118,14 @@ class Regex {
      * @link http://www.php.net/manual/en/function.preg-replace.php
      * @since 1.0-sofia
      */
-    public function replace($subject, $replacement, $limit = -1){
-        $result = preg_replace($this->regex, $replacement, $subject, $limit);
+    public function replace($subject, $replacement, $limit = -1)
+    {
+        $result = preg_replace(
+            $this->regex,
+            $replacement,
+            $subject,
+            $limit
+        );
         return $result;
     }
 
@@ -130,12 +142,17 @@ class Regex {
      * @link http://www.php.net/manual/en/function.preg-replace-callback.php
      * @since 1.0-sofia
      */
-    public function replaceCallback($subject, $callback, $limit = -1){
-        $result = preg_replace_callback($this->regex, $callback,
-                $subject, $limit);
+    public function replaceCallback($subject, $callback, $limit = -1)
+    {
+        $result = preg_replace_callback(
+            $this->regex,
+            $callback,
+            $subject,
+            $limit
+        );
         return $result;
     }
-    
+
     /**
      * Find the position of the first occurrance of regular expression match 
      * in the string
@@ -145,18 +162,24 @@ class Regex {
      *               the string, or -1 if not found. 
      * @since 1.0-sofia
      */
-    public function indexOf($subject, $offset = 0){
+    public function indexOf($subject, $offset = 0)
+    {
         $match = array(array(''));
-        $i = preg_match($this->regex(), $subject, $match,
-                PREG_OFFSET_CAPTURE , $offset);
-        if($i){
+        $count = preg_match(
+            $this->regex,
+            $subject,
+            $match,
+            PREG_OFFSET_CAPTURE,
+            $offset
+        );
+        if ($count) {
             $match = reset($match);
             $result = strpos($subject, $match[0], $offset);
             return $result === false ? -1 : $result;
         }
         return -1;
     }
-    
+
     /**
      * Find the position of the last occurrance of perl compatible regular
      *           expression match in the string
@@ -166,11 +189,17 @@ class Regex {
      *                       the string, or -1 if not found. 
      * @since 1.0-sofia
      */
-    public function lastIndexOf($subject, $offset = 0){
+    public function lastIndexOf($subject, $offset = 0)
+    {
         $match = array(array(''));
-        $i = preg_match_all($this->regex(), $subject, $match,
-                PREG_SET_ORDER , $offset);
-        if($i){
+        $count = preg_match_all(
+            $this->regex,
+            $subject,
+            $match,
+            PREG_SET_ORDER,
+            $offset
+        );
+        if ($count) {
             $match = end($match);
             $result = strrpos($subject, $match[0], $offset);
             return $result === false ? -1 : $result;
@@ -181,15 +210,12 @@ class Regex {
     /**
      * Escapes / add slashes to special characters in Regex operation
      * @param string $text The text to perform escaping
+     * @param string $delimiter The delimiter of your regular expression that will be escaped. '/' is the most commonly used delimiter in most regex.
      * @return string Returns the escaped string
      * @since 1.0-sofia
      */
-    public static function escape($text) {
-        $spec  = '"\'^$.[]|()?*+{}/!';
-        $text = str_replace("\\n", "\n", $text);
-        $text = addcslashes($text, $spec);
-        $text = htmlentities($text);
-        return $text;
-    } 
-    
+    public static function escape($text, $delimiter = '')
+    {
+        return preg_quote($text, $delimiter);
+    }
 }
